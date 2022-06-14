@@ -7,12 +7,17 @@ import Cart from '../Cart/Cart';
 const Shop = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
+    // product to be rendered on the uI
+    const [displayProducts, setDisplayProducts] = useState([]);
     // API
     useEffect(() => {
         fetch('./products.JSON')
             .then(res => res.json())
-            .then(data => setProducts(data));
-    }, [])
+            .then(data => {
+                setProducts(data);
+                setDisplayProducts(data);
+            });
+    }, []);
 
     useEffect(() => {
         if (products.length) {
@@ -50,10 +55,13 @@ const Shop = () => {
         // Save to local storage for now
         addToDb(product.key)
     }
-
+    // Search field
     const handleSearch = event => {
         const searchText = event.target.value;
-        console.log(searchText);
+        // console.log(searchText);
+        const matchProducts = products.filter(product => product.name.toLowerCase().includes(searchText.toLowerCase()));
+        // setProducts(matchProducts);
+        console.log(matchProducts);
     }
     return (
         <>
@@ -66,7 +74,7 @@ const Shop = () => {
                 <div className="product-container">
 
                     {
-                        products.map(product => <Product key={product.key} product={product}
+                        displayProducts.map(product => <Product key={product.key} product={product}
                             handleAddToCart={handleAddToCart}></Product>)
                     }
                 </div>
