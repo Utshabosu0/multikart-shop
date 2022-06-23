@@ -47,21 +47,39 @@ const Shop = () => {
 
 
 
-    const handleAddToCart = (product) => {
-        // console.log(product)
-        const newCart = [...cart, product];
+    // const handleAddToCart = (product) => {
+    //     // console.log(product)
+    //     const newCart = [...cart, product];
+    //     setCart(newCart);
+    //     // console.log(product);
+    //     // Save to local storage for now
+    //     addToDb(product.key)
+    // }
+
+    const handleAddToCart = (selectedProduct) => {
+        // console.log(selectedProduct);
+        let newCart = [];
+        const exists = cart.find(product => product.key === selectedProduct.key);
+        if (!exists) {
+            selectedProduct.quantity = 1;
+            newCart = [...cart, selectedProduct];
+        }
+        else {
+            const rest = cart.filter(product => product.key !== selectedProduct.key);
+            exists.quantity = exists.quantity + 1;
+            newCart = [...rest, exists];
+        }
+
         setCart(newCart);
-        // console.log(product);
-        // Save to local storage for now
-        addToDb(product.key)
+        addToDb(selectedProduct.key);
     }
     // Search field
     const handleSearch = event => {
         const searchText = event.target.value;
         // console.log(searchText);
         const matchProducts = products.filter(product => product.name.toLowerCase().includes(searchText.toLowerCase()));
-        // setProducts(matchProducts);
-        console.log(matchProducts);
+        setDisplayProducts(matchProducts);
+        // console.log(matchProducts.length);
     }
     return (
         <>
