@@ -4,14 +4,16 @@ import useCarts from './../../hooks/useCarts';
 import Cart from '../Cart/Cart';
 import './OrderReview.css'
 import ReviewItem from '../ReviewItem/ReviewItem';
+import { removeFromDb } from "../../utilities/fakedb";
 
 const OrderReview = () => {
-    const [Products, setProducts] = useProducts();
+    const [Products] = useProducts();
     const [cart, setCart] = useCarts(Products);
     const handleRemove = key => {
         // console.log(key);
         const newCart = cart.filter(Product => Product.key !== key);
         setCart(newCart);
+        removeFromDb(key);
     }
     return (
         <div className='review-container'>
