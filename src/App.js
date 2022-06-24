@@ -6,14 +6,16 @@ import './App.css';
 import Header from './components/Header/Header';
 import Shop from './components/Shop/Shop';
 import Inventory from './components/Inventory/Inventory';
-import OrderReview from './components/OrderReview/OrderReview';
 import NotFound from './components/NotFound/NotFound';
+import OrderReview from './components/OrderReview/OrderReview';
+import PlaceOrder from "./components/PlaceOrder/PlaceOrder";
 
 function App() {
   return (
     <div>
-      <Header></Header>
+
       <Router>
+        <Header></Header>
         <Switch>
           <Route exact path="/">
             <Shop></Shop>
@@ -21,11 +23,14 @@ function App() {
           <Route path="/shop">
             <Shop></Shop>
           </Route>
+          <Route path="/review">
+            <OrderReview></OrderReview>
+          </Route>
           <Route path="/inventory">
             <Inventory></Inventory>
           </Route>
-          <Route path="/orders">
-            <OrderReview></OrderReview>
+          <Route path="/placeOrder">
+            <PlaceOrder></PlaceOrder>
           </Route>
           <Route path="*">
             <NotFound></NotFound>
