@@ -14,7 +14,7 @@ const Product = (props) => {
             <div>
                 <img src={img} alt="" />
             </div>
-            <div>
+            <div className='product-container'>
                 <h4 className='product-name'>{name}</h4>
                 <p> <small>by:{seller}</small> </p>
                 <p>Price: {price}</p>
@@ -24,7 +24,7 @@ const Product = (props) => {
                     emptySymbol="fa-regular fa-star"
                     fullSymbol="fa-solid fa-star"
                     readonly
-                ></Rating> <br /> <br />
+                ></Rating> <br />
                 <button
                     onClick={() => props.handleAddToCart(props.product)}
                     className='btn-regular'>{cartIcon}  Add To Cart</button>

@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import './Shop.css';
-import Product from './../Product/Product';
 import { addToDb, getStoredCart } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
-// import { Link } from 'react-router-dom';
+import './Home.css'
+import HomeProduct from '../HomeProduct/HomeProduct';
 
-const Shop = () => {
+
+const Home = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
     // product to be rendered on the uI
-    const [displayProducts, setDisplayProducts] = useState([]);
     // API
     useEffect(() => {
         fetch('./products.JSON')
             .then(res => res.json())
             .then(data => {
                 setProducts(data);
-                setDisplayProducts(data);
             });
     }, []);
 
@@ -74,30 +72,19 @@ const Shop = () => {
         setCart(newCart);
         addToDb(selectedProduct.key);
     }
-    // Search field
-    const handleSearch = event => {
-        const searchText = event.target.value;
-        // console.log(searchText);
-        const matchProducts = products.filter(product => product.name.toLowerCase().includes(searchText.toLowerCase()));
-        setDisplayProducts(matchProducts);
-        // console.log(matchProducts.length);
-    }
+
     return (
         <>
-            <div className="search-container">
-                <input type="text"
-                    onChange={handleSearch}
-                    name="" id="" placeholder='Search Products' />
-            </div>
-            <div className='shop-container'>
-                <div className="shop-product-container">
+
+            <div className='home-container'>
+                <div className="home-product-container">
 
                     {
-                        displayProducts.map(product => <Product key={product.key} product={product}
-                            handleAddToCart={handleAddToCart}></Product>)
+                        products.map(product => <HomeProduct key={product.key} product={product}
+                            handleAddToCart={handleAddToCart}></HomeProduct>)
                     }
                 </div>
-                <div className="shop-cart-container">
+                <div className="home-cart-container">
                     <Cart cart={cart}>
                         <a href="/review">
                             <button className="btn-regular">Review Your Order</button></a>
@@ -109,5 +96,5 @@ const Shop = () => {
     );
 };
 
-export default Shop;
+export default Home;
 // "react-router": "^6.3.0",

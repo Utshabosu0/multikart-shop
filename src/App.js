@@ -9,6 +9,7 @@ import Inventory from './components/Inventory/Inventory';
 import NotFound from './components/NotFound/NotFound';
 import OrderReview from './components/OrderReview/OrderReview';
 import PlaceOrder from "./components/PlaceOrder/PlaceOrder";
+import Home from "./components/Home/Home";
 
 function App() {
   return (
@@ -18,7 +19,10 @@ function App() {
         <Header></Header>
         <Switch>
           <Route exact path="/">
-            <Shop></Shop>
+            <Home></Home>
+          </Route>
+          <Route path="/home">
+            <Home></Home>
           </Route>
           <Route path="/shop">
             <Shop></Shop>
