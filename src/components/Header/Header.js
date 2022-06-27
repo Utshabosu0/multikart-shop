@@ -1,18 +1,34 @@
 import React from 'react';
 import logo from '../../images/logo.png'
 import './Header.css';
+import useAuth from '../../hooks/useAuth';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
+    const { user, logOut } = useAuth();
     return (
-        <nav className='header'>
+        <div className='header'>
             <img src={logo} alt="" />
-            <div>
-                <a href="/home">Home</a>
-                <a href="/shop">Shop</a>
-                <a href="/review">order Review</a>
-                <a href="/inventory">Manage Inventory</a>
-            </div>
-        </nav>
+            <nav>
+                <Link to="/home">Home</Link>
+                <Link to="/shop">Shop</Link>
+                <Link to="/review">order Review</Link>
+                <Link to="/inventory">Manage Inventory</Link>
+
+                {
+                    user.email ?
+                        <button className='header-btn' onClick={logOut}>Log Out</button>
+                        :
+                        <a href="/login">Log In</a>
+                }
+
+                <span style={{ color: 'goldenrod', }}> {user.displayName}</span>
+                <img src={user.photoURL} alt="" />
+                {/* <span style={{ color: 'goldenrod' }}> {user.email}</span> */}
+            </nav>
+
+        </div>
+
     );
 };
 
