@@ -29,3 +29,21 @@
     background-color: rgba(255, 153, 0, 0.3);
 
 }
+
+
+.pageination button {
+    color: black;
+    font-size: larger;
+
+}
+
+.pageination {
+    margin-bottom: 10%;
+    margin-left: 73%;
+}
+
+.pageination .selected {
+    background-color: rgb(253, 161, 3);
+    color: beige;
+
+}

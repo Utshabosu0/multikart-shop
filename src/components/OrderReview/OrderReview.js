@@ -1,15 +1,14 @@
 import React from 'react';
-import useProducts from './../../hooks/useProducts';
 import useCarts from './../../hooks/useCarts';
 import Cart from '../Cart/Cart';
 import './OrderReview.css'
 import ReviewItem from '../ReviewItem/ReviewItem';
-import { clearTheCart, removeFromDb } from "../../utilities/fakedb";
+import { addToDb, decrement, removeFromDb } from "../../utilities/fakedb";
 import { useHistory } from 'react-router-dom';
 
 const OrderReview = () => {
-    const [Products] = useProducts();
-    const [cart, setCart] = useCarts(Products);
+
+    const [cart, setCart] = useCarts();
     const history = useHistory();
     const handleRemove = key => {
         // console.log(key);
@@ -18,18 +17,35 @@ const OrderReview = () => {
         removeFromDb(key);
     }
     const handlePlaceOrder = () => {
+        // console.log(setCart([]))
         history.push('/shipping');
         setCart([]);
-        clearTheCart();
+        // clearTheCart();
+    }
+    const handleDecrement = (key) => {
+        setCart(cart =>
+            cart.map((Product) => key === Product.key ? { ...Product, quantity: Product.quantity - (Product.quantity > 1 ? 1 : 0) } : Product));
+        decrement(key)
+
+    }
+    const handleIecrement = (key) => {
+        setCart(cart =>
+            cart.map((Product) => key === Product.key ? { ...Product, quantity: Product.quantity + (Product.quantity < 100 ? 1 : 0) } : Product));
+        addToDb(key)
+
     }
     return (
         <div className='review-container'>
-            <div className="product-container">
+            <div >
                 {
                     cart.map(product => <ReviewItem
                         key={product.key}
                         product={product}
-                        handleRemove={handleRemove}></ReviewItem>)
+                        handleRemove={handleRemove}
+                        handleDecrement={handleDecrement}
+                        handleIecrement={handleIecrement}>
+
+                    </ReviewItem>)
                 }
 
             </div>

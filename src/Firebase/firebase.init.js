@@ -45,4 +45,6 @@ export default initializeAuthentication;
 // crate private route
 // set private route
 
-
+// step-6
+// redirect after log in
+// 1. after log in

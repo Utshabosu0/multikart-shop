@@ -3,15 +3,17 @@ import { addToDb, getStoredCart } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import './Home.css'
 import HomeProduct from '../HomeProduct/HomeProduct';
+import Footer from '../Footer/Footer';
 
 
 const Home = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
+
     // product to be rendered on the uI
     // API
     useEffect(() => {
-        fetch('./products.JSON')
+        fetch('./products.json')
             .then(res => res.json())
             .then(data => {
                 setProducts(data);
@@ -77,13 +79,16 @@ const Home = () => {
         <>
 
             <div className='home-container'>
-                <div className="home-product-container">
 
+                <div className='home-product-container'>
                     {
                         products.map(product => <HomeProduct key={product.key} product={product}
                             handleAddToCart={handleAddToCart}></HomeProduct>)
                     }
                 </div>
+
+
+
                 <div className="home-cart-container">
                     <Cart cart={cart}>
                         <a href="/review">
@@ -92,9 +97,42 @@ const Home = () => {
                 </div>
 
             </div>
+            <Footer></Footer>
+            {/* 
+            <div className="pageination">
+{
+    [...Array(pageCount).keys()].map(number =>
+        <button
+            className={number === page ? 'selected' : ''}
+            key={number}
+            onClick={() => setPage(number)}
+        >{number + 1}</button>)
+}
+</div>
+
+
+const [cart, setCart] = useCarts();
+const [page, setPage] = useState(0);
+const [pageCount, setPageCount] = useState(0);
+const size = 9;
+// product to be rendered on the uI
+// API
+useEffect(() => {
+    fetch(`http://localhost:5000/products?page=${page}&&size=${size}`)
+        .then(res => res.json())
+        .then(data => {
+            setProducts(data.result);
+            const count = data.count;
+            const pageNumber = Math.ceil(count / size);
+            setPageCount(pageNumber);
+        });
+}, [page]); */}
         </>
     );
 };
 
+
+
 export default Home;
 // "react-router": "^6.3.0",
+
